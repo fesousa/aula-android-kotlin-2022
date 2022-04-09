@@ -14,7 +14,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-
 class TelaInicialActivity : DebugActivity() {
 
     private val context: Context get() = this
@@ -47,7 +46,11 @@ class TelaInicialActivity : DebugActivity() {
 
         // up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
     }
+
+
 
     fun cliqueSair() {
         val returnIntent = Intent();
@@ -61,7 +64,7 @@ class TelaInicialActivity : DebugActivity() {
         // infla o menu com os botões da ActionBar
         menuInflater.inflate(R.menu.menu_main, menu)
         // vincular evento de buscar
-        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView?)?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 // ação enquanto está digitando
