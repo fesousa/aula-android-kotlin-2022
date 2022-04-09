@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LMSApp</string>
+    <string name="mensagem_login">Faça seu Login</string>
 </resources>
