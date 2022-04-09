@@ -21,25 +21,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <!-- Colocar cardview com as disciplinas-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDisciplinas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical">
+            </androidx.recyclerview.widget.RecyclerView>
 
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/mensagemInicial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <Button
-                    android:id="@+id/botaoSair"
-                    android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:text="Sair" />
-            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
@@ -52,9 +47,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/menu_lateral_cabecalho"
-        app:menu="@menu/menu_lateral"
-
-        >
+        app:menu="@menu/menu_lateral">
 
 
     </com.google.android.material.navigation.NavigationView>

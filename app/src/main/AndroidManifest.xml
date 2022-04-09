@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.fernandosousa.lmsapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +23,9 @@
         <activity android:name=".DebugActivity" />
         <activity android:name=".TelaInicialActivity"
             android:theme="@style/AppTheme.Toolbar"></activity>
+        <activity android:name=".DisciplinaActivity"
+            android:theme="@style/AppTheme.Toolbar"
+            android:parentActivityName=".TelaInicialActivity"></activity>
     </application>
 
 </manifest>

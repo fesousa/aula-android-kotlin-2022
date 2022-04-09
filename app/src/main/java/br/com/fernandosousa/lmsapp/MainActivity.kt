@@ -19,7 +19,7 @@ class MainActivity : DebugActivity() {
         texto_login.text = getString(R.string.mensagem_login)
 
         // evento no botao de login forma 1
-//        botaoLogin.setOnClickListener {
+//        botao_login.setOnClickListener {
 //            val valorUsuario = campo_usuario.text.toString()
 //            val valorSenha = campo_senha.text.toString()
 //            Toast.makeText(this, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
