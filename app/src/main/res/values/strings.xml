@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">LMSApp</string>
     <string name="mensagem_login">Faça seu Login</string>
+
+    <string name="action_buscar">Buscar</string>
+    <string name="action_atualizar">Atualizar</string>
+    <string name="action_adicionar">Adicionar</string>
+    <string name="action_config">Configurações</string>
 </resources>

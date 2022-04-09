@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DebugActivity" />
-        <activity android:name=".TelaInicialActivity"></activity>
+        <activity android:name=".TelaInicialActivity"
+            android:theme="@style/AppTheme.Toolbar"></activity>
     </application>
 
 </manifest>

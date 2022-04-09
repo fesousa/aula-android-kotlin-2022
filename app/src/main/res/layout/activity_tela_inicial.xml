@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,16 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TelaInicialActivity">
-
-    <TextView
-        android:id="@+id/mensagemInicial"
+    <include layout="@layout/toolbar"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/mensagemInicial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
-    <Button
-        android:id="@+id/botaoSair"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sair" />
+        <Button
+            android:id="@+id/botaoSair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sair" />
+    </LinearLayout>
 </LinearLayout>
