@@ -6,17 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class TelaInicialActivity : DebugActivity() {
+class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_inicial)
@@ -47,10 +48,50 @@ class TelaInicialActivity : DebugActivity() {
         // up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        // configuração do menu lateral
+        configuraMenuLateral()
     }
 
+    // configuração do navigation Drawer com a toolbar
+    private fun configuraMenuLateral() {
+         // ícone de menu (hamburger) para mostrar o menu
+        var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
 
+        layoutMenuLateral.addDrawerListener(toogle)
+        toogle.syncState()
+
+        menu_lateral.setNavigationItemSelectedListener(this)
+    }
+
+    // método que deve ser implementado quando a activity implementa a interface NavigationView.OnNavigationItemSelectedListener
+    // para tratar os eventos de clique no menu lateral
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_diciplinas -> {
+                Toast.makeText(this, "Clicou Disciplinas", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.nav_mensagens -> {
+                Toast.makeText(this, "Clicou Mensagens", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.nav_forum -> {
+                Toast.makeText(this, "Clicou Forum", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.nav_localizacao -> {
+                Toast.makeText(this, "Clicou Localização", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.nav_config -> {
+                Toast.makeText(this, "Clicou Config", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // fecha menu depois de tratar o evento
+        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        return true
+    }
 
     fun cliqueSair() {
         val returnIntent = Intent();
