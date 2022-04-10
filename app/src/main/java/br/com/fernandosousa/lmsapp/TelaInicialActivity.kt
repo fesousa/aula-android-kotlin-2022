@@ -4,8 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -85,7 +88,13 @@ class TelaInicialActivity : DebugActivity() {
         if  (id == R.id.action_buscar) {
             Toast.makeText(context, "Botão de buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
-            Toast.makeText(context, "Botão de atualizar", Toast.LENGTH_LONG).show()
+            progressAtualizar.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    progressAtualizar.visibility = View.GONE
+                },
+                5000
+            )
         } else if (id == R.id.action_config) {
             Toast.makeText(context, "Botão de configuracoes", Toast.LENGTH_LONG).show()
         }
