@@ -57,6 +57,8 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
         recyclerDisciplinas?.setHasFixedSize(true)
 
+
+
     }
 
     override fun onResume() {

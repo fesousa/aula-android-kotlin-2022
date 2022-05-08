@@ -33,7 +33,7 @@ class DisciplinaActivity : DebugActivity() {
         // up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // atualizar dados da disciplina
+        // atualizar dados do carro
         nomeDisciplina.text = disciplina?.nome
         Picasso.with(this).load(disciplina?.foto).fit().into(imagemDisciplina,
                 object: com.squareup.picasso.Callback{

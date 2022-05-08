@@ -31,12 +31,38 @@ class MainActivity : DebugActivity() {
 
         progressBar.visibility = View.INVISIBLE
 
+        // procurar pelas preferências, se pediu para guardar usuário e senha
+        var lembrar = Prefs.getBoolean("lembrar")
+        if (lembrar) {
+            var lembrarNome  = Prefs.getString("lembrarNome")
+            var lembrarSenha  = Prefs.getString("lembrarSenha")
+            campo_usuario.setText(lembrarNome)
+            campo_senha.setText(lembrarSenha)
+            checkBoxLogin.isChecked = lembrar
+
+        }
+
+
+
+
     }
 
     fun onClickLogin(){
-        val valorUsuario = campo_usuario.text.toString()
-        val valorSenha = campo_senha.text.toString()
-        //Toast.makeText(context, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
+
+            val valorUsuario = campo_usuario.text.toString()
+            val valorSenha = campo_senha.text.toString()
+
+            // armazenar valor do checkbox
+            Prefs.setBoolean("lembrar", checkBoxLogin.isChecked)
+            // verificar se é para pembrar nome e senha
+            if (checkBoxLogin.isChecked) {
+                Prefs.setString("lembrarNome", valorUsuario)
+                Prefs.setString("lembrarSenha", valorSenha)
+            } else{
+                Prefs.setString("lembrarNome", "")
+                Prefs.setString("lembrarSenha", "")
+            }
+
 
         // criar intent
         val intent = Intent(context, TelaInicialActivity::class.java)
