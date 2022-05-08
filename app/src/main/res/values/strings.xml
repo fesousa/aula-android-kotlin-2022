@@ -6,7 +6,8 @@
     <string name="action_atualizar">Atualizar</string>
     <string name="action_adicionar">Adicionar</string>
     <string name="action_config">Configurações</string>
+    <string name="action_remover">Remover</string>
 
-    <string name="navigation_drawer_open">Abrir</string>
-    <string name="navigation_drawer_close">Fechar</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
 </resources>

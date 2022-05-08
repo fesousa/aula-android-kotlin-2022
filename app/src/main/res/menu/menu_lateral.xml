@@ -6,18 +6,22 @@
             android:icon="@drawable/ic_disciplina_black"
             android:title="Disciplinas"
             android:checked="true"/>
+
         <item
             android:id="@+id/nav_forum"
             android:icon="@drawable/ic_forum_black"
             android:title="Fórum" />
+
         <item
             android:id="@+id/nav_mensagens"
             android:icon="@drawable/ic_chat_black"
             android:title="Mensagens" />
+
         <item
             android:id="@+id/nav_localizacao"
             android:icon="@drawable/ic_local_black"
             android:title="Localização" />
+
         <item
             android:id="@+id/nav_config"
             android:icon="@drawable/ic_configuracoes_black"

@@ -10,6 +10,9 @@
         android:icon="@drawable/ic_atualizar_white"
         android:title="@string/action_atualizar"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_adicionar"
+        android:title="@string/action_adicionar"
+        app:showAsAction="never" />
     <item android:id="@+id/action_config"
         android:title="@string/action_config"
         app:showAsAction="never" />

@@ -3,6 +3,7 @@
     package="br.com.fernandosousa.lmsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,7 @@
         android:theme="@style/Theme.LMSApp">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:theme="@style/Theme.LMSApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +22,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".DebugActivity" />
-        <activity android:name=".TelaInicialActivity"
-            android:theme="@style/AppTheme.Toolbar"></activity>
-        <activity android:name=".DisciplinaActivity"
-            android:theme="@style/AppTheme.Toolbar"
-            android:parentActivityName=".TelaInicialActivity"></activity>
+        <activity
+            android:name=".TelaInicialActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity
+            android:name=".DisciplinaActivity"
+            android:parentActivityName=".TelaInicialActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity android:name=".DisciplinaCadastroActivity"></activity>
     </application>
 
 </manifest>

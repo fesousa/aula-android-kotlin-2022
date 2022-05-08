@@ -3,6 +3,7 @@ package br.com.fernandosousa.lmsapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.login.*
 
@@ -27,6 +28,8 @@ class MainActivity : DebugActivity() {
 
         // segunda forma: delegar para método
         botao_login.setOnClickListener {onClickLogin() }
+
+        progressBar.visibility = View.INVISIBLE
 
     }
 

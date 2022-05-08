@@ -1,5 +1,6 @@
 package br.com.fernandosousa.lmsapp
 
+import com.google.gson.GsonBuilder
 import java.io.Serializable
 
 class Disciplina : Serializable {
@@ -12,5 +13,9 @@ class Disciplina : Serializable {
 
     override fun toString(): String {
         return "Disciplina(nome='$nome')"
+    }
+
+    fun toJson(): String {
+        return GsonBuilder().create().toJson(this)
     }
 }
