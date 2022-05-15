@@ -8,10 +8,10 @@ import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
@@ -67,9 +67,10 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         taskDisciplinas()
     }
 
-    fun taskDisciplinas() {
-        // Criar a Thread
 
+    fun taskDisciplinas() {
+
+        // Criar a Thread
         Thread {
             // Código para procurar as disciplinas
             // que será executado em segundo plano / Thread separada
@@ -77,9 +78,21 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
             runOnUiThread {
                 // Código para atualizar a UI com a lista de disciplinas
                 recyclerDisciplinas?.adapter = DisciplinaAdapter(this.disciplinas) { onClickDisciplina(it) }
+                // enviar notificação
+                enviaNotificacao(this.disciplinas.get(0))
+
             }
         }.start()
 
+    }
+
+    fun enviaNotificacao(disciplina: Disciplina) {
+        // Intent para abrir tela quando clicar na notificação
+        val intent = Intent(this, DisciplinaActivity::class.java)
+        // parâmetros extras
+        intent.putExtra("disciplina", disciplina)
+        // Disparar notificação
+        NotificationUtil.create(this, 1, intent, "LMSApp", "Você tem nova atividade na ${disciplina.nome}")
     }
 
     // tratamento do evento de clicar em uma disciplina
@@ -92,6 +105,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
 
     // configuraçao do navigation Drawer com a toolbar
     private fun configuraMenuLateral() {
+
         // ícone de menu (hamburger) para mostrar o menu
         var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
 

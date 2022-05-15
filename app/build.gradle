@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    // Firebase
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -57,4 +59,8 @@ dependencies {
     // Google Room - Banco de Dados
     implementation "androidx.room:room-runtime:2.2.3"
     kapt "androidx.room:room-compiler:2.2.3"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:21.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.4'
 }

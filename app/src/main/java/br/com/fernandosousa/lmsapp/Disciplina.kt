@@ -1,8 +1,8 @@
 package br.com.fernandosousa.lmsapp
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.io.Serializable
 
