@@ -3,19 +3,25 @@ package br.com.fernandosousa.lmsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import kotlinx.android.synthetic.main.login.*
+import br.com.fernandosousa.lmsapp.databinding.LoginBinding
+
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding by lazy {
+        LoginBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login)
+
+        setContentView(binding.root)
 
         // encontra objeto pelo id
-        campo_imagem.setImageResource(R.drawable.imagem_login)
-
-
-        texto_login.text = getString(R.string.mensagem_login)
+        binding.campoImagem.setImageResource(R.drawable.imagem_login)
+//
+//
+        binding.textoLogin.text = getString(R.string.mensagem_login)
 
         // evento no botao de login forma 1
 //        botao_login.setOnClickListener {
@@ -25,13 +31,13 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         // segunda forma: delegar para método
-        botao_login.setOnClickListener {onClickLogin() }
+        binding.botaoLogin.setOnClickListener {onClickLogin() }
 
     }
 
     fun onClickLogin(){
-        val valorUsuario = campo_usuario.text.toString()
-        val valorSenha = campo_senha.text.toString()
+        val valorUsuario = binding.campoUsuario.text.toString()
+        val valorSenha = binding.campoSenha.text.toString()
         Toast.makeText(this, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
     }
 }
