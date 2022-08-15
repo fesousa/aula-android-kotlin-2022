@@ -7,14 +7,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_tela_inicial.*
+import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
+
 
 class TelaInicialActivity : DebugActivity() {
+
+    private val binding by lazy {
+        ActivityTelaInicialBinding.inflate(layoutInflater)
+    }
 
     private val context: Context get() = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(binding.root)
 
         // acessar parametros da intnet
         // intent é um atributo herdado de Activity
@@ -28,9 +33,9 @@ class TelaInicialActivity : DebugActivity() {
         Toast.makeText(context, "Parâmetro: $nome", Toast.LENGTH_LONG).show()
         Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
 
-        mensagemInicial.text = "Bem vindo $nome"
+        binding.mensagemInicial.text = "Bem vindo $nome"
 
-        botaoSair.setOnClickListener {cliqueSair()}
+        binding.botaoSair.setOnClickListener {cliqueSair()}
     }
 
     fun cliqueSair() {
