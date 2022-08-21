@@ -9,21 +9,24 @@ import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import android.widget.TextView
+
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import kotlinx.android.synthetic.main.toolbar.*
+import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
+
+
 
 
 class TelaInicialActivity : DebugActivity() {
 
+    private val binding by lazy {
+        ActivityTelaInicialBinding.inflate(layoutInflater)
+    }
+
     private val context: Context get() = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(binding.root)
 
         // acessar parametros da intnet
         // intent é um atributo herdado de Activity
@@ -37,12 +40,12 @@ class TelaInicialActivity : DebugActivity() {
         Toast.makeText(context, "Parâmetro: $nome", Toast.LENGTH_LONG).show()
         Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
 
-        mensagemInicial.text = "Bem vindo $nome"
+        binding.mensagemInicial.text = "Bem vindo $nome"
 
-        botaoSair.setOnClickListener {cliqueSair()}
+        binding.botaoSair.setOnClickListener {cliqueSair()}
 
         // colocar toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarInclude.toolbar)
 
 
         // alterar título da ActionBar
@@ -88,10 +91,10 @@ class TelaInicialActivity : DebugActivity() {
         if  (id == R.id.action_buscar) {
             Toast.makeText(context, "Botão de buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
-            progressAtualizar.visibility = View.VISIBLE
+            binding.progressAtualizar.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed(
                 {
-                    progressAtualizar.visibility = View.GONE
+                    binding.progressAtualizar.visibility = View.GONE
                 },
                 5000
             )

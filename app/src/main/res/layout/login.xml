@@ -6,46 +6,46 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/texto_login"
+        android:id="@+id/textLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/mensagem_login" />
 
     <TextView
-        android:id="@+id/texto_usuario"
+        android:id="@+id/textoUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Usuário" />
 
     <EditText
-        android:id="@+id/campo_usuario"
+        android:id="@+id/campoUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/texto_senha"
+        android:id="@+id/textoSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Senha" />
 
     <EditText
-        android:id="@+id/campo_senha"
+        android:id="@+id/campoSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/botao_login"
+        android:id="@+id/botaoLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stateListAnimator="@null"
         android:text="Login" />
 
     <ImageView
-        android:id="@+id/campo_imagem"
+        android:id="@+id/campoImagem"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
