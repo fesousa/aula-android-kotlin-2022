@@ -14,9 +14,6 @@ import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
 
-
-
-
 class TelaInicialActivity : DebugActivity() {
 
     private val binding by lazy {
@@ -63,7 +60,7 @@ class TelaInicialActivity : DebugActivity() {
     }
 
     // método sobrescrito para inflar o menu na Actionbar
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // infla o menu com os botões da ActionBar
         menuInflater.inflate(R.menu.menu_main, menu)
         // vincular evento de buscar
