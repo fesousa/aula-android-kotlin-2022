@@ -57,7 +57,7 @@ class TelaInicialActivity : DebugActivity() {
 
     fun cliqueSair() {
         val returnIntent = Intent();
-        returnIntent.putExtra("result","Saída do BrewerApp");
+        returnIntent.putExtra("result","Saída do LMSApp");
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
