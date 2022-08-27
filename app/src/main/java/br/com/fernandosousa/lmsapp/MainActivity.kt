@@ -4,19 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import kotlinx.android.synthetic.main.login.*
+import br.com.fernandosousa.lmsapp.databinding.LoginBinding
 
 class MainActivity : DebugActivity() {
+
+    private val binding by lazy {
+        LoginBinding.inflate(layoutInflater)
+    }
 
     private val context: Context get() = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login)
+        setContentView(binding.root)
 
         // encontra objeto pelo id
-        campo_imagem.setImageResource(R.drawable.imagem_login)
+        binding.campoImagem.setImageResource(R.drawable.imagem_login)
 
-        texto_login.text = getString(R.string.mensagem_login)
+        binding.textoLogin.text = getString(R.string.mensagem_login)
 
         // evento no botao de login forma 1
 //        botao_login.setOnClickListener {
@@ -26,13 +30,13 @@ class MainActivity : DebugActivity() {
 //        }
 
         // segunda forma: delegar para método
-        botao_login.setOnClickListener {onClickLogin() }
+        binding.botaoLogin.setOnClickListener {onClickLogin() }
 
     }
 
     fun onClickLogin(){
-        val valorUsuario = campo_usuario.text.toString()
-        val valorSenha = campo_senha.text.toString()
+        val valorUsuario = binding.campoUsuario.text.toString()
+        val valorSenha = binding.campoSenha.text.toString()
         //Toast.makeText(context, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
 
         // criar intent
@@ -54,6 +58,7 @@ class MainActivity : DebugActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             val result = data?.getStringExtra("result")
             Toast.makeText(context, "$result", Toast.LENGTH_LONG).show()
