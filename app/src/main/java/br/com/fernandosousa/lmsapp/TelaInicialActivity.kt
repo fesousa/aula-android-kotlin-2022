@@ -6,21 +6,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import kotlinx.android.synthetic.main.toolbar.*
+
 
 class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val context: Context get() = this
+    private val binding by lazy {
+        ActivityTelaInicialBinding.inflate(layoutInflater)
+    }
 
+    private val context: Context get() = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(binding.root)
 
         // acessar parametros da intnet
         // intent é um atributo herdado de Activity
@@ -34,12 +40,12 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         Toast.makeText(context, "Parâmetro: $nome", Toast.LENGTH_LONG).show()
         Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
 
-        mensagemInicial.text = "Bem vindo $nome"
+        binding.mensagemInicial.text = "Bem vindo $nome"
 
-        botaoSair.setOnClickListener {cliqueSair()}
+        binding.botaoSair.setOnClickListener {cliqueSair()}
 
         // colocar toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarInclude.toolbar)
 
 
         // alterar título da ActionBar
@@ -50,21 +56,20 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
 
         // configuração do menu lateral
         configuraMenuLateral()
+
     }
 
     // configuração do navigation Drawer com a toolbar
     private fun configuraMenuLateral() {
-         // ícone de menu (hamburger) para mostrar o menu
-        var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        // ícone de menu (hamburger) para mostrar o menu
+        var toogle = ActionBarDrawerToggle(this, binding.layoutMenuLateral, binding.toolbarInclude.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
 
-        layoutMenuLateral.addDrawerListener(toogle)
+        binding.layoutMenuLateral.addDrawerListener(toogle)
         toogle.syncState()
 
-        menu_lateral.setNavigationItemSelectedListener(this)
+        binding.menuLateral.setNavigationItemSelectedListener(this)
     }
 
-    // método que deve ser implementado quando a activity implementa a interface NavigationView.OnNavigationItemSelectedListener
-    // para tratar os eventos de clique no menu lateral
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_diciplinas -> {
@@ -89,9 +94,10 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         }
 
         // fecha menu depois de tratar o evento
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        binding.layoutMenuLateral.closeDrawer(GravityCompat.START)
         return true
     }
+
 
     fun cliqueSair() {
         val returnIntent = Intent();
