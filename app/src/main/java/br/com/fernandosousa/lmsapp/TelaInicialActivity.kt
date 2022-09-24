@@ -14,17 +14,20 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import kotlinx.android.synthetic.main.toolbar.*
+import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
 
 class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
     private var disciplinas = listOf<Disciplina>()
 
+    private val binding by lazy {
+        ActivityTelaInicialBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(binding.root)
 
         // acessar parametros da intnet
         // intent é um atributo herdado de Activity
@@ -40,7 +43,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
 
         // colocar toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarInclude.toolbar)
 
         // alterar título da ActionBar
         supportActionBar?.title = "Disciplinas"
@@ -51,9 +54,9 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         configuraMenuLateral()
 
         // configurar cardview
-        recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
-        recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
-        recyclerDisciplinas?.setHasFixedSize(true)
+        binding.recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
+        binding.recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
+        binding.recyclerDisciplinas?.setHasFixedSize(true)
 
     }
 
@@ -66,7 +69,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     fun taskDisciplinas() {
         this.disciplinas = DisciplinaService.getDisciplinas(context)
         // atualizar lista
-        recyclerDisciplinas?.adapter = DisciplinaAdapter(disciplinas) {onClickDisciplina(it)}
+        binding.recyclerDisciplinas?.adapter = DisciplinaAdapter(disciplinas) {onClickDisciplina(it)}
     }
 
     // tratamento do evento de clicar em uma disciplina
@@ -81,12 +84,17 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     private fun configuraMenuLateral() {
 
         // ícone de menu (hamburger) para mostrar o menu
-        var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        var toogle = ActionBarDrawerToggle(
+            this,
+            binding.layoutMenuLateral,
+            binding.toolbarInclude.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close)
 
-        layoutMenuLateral.addDrawerListener(toogle)
+        binding.layoutMenuLateral.addDrawerListener(toogle)
         toogle.syncState()
 
-        menu_lateral.setNavigationItemSelectedListener(this)
+        binding.menuLateral.setNavigationItemSelectedListener(this)
     }
 
     // método que deve ser implementado quando a activity implementa a interface NavigationView.OnNavigationItemSelectedListener
@@ -115,7 +123,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         }
 
         // fecha menu depois de tratar o evento
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        binding.layoutMenuLateral.closeDrawer(GravityCompat.START)
         return true
     }
 
