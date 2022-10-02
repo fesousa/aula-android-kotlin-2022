@@ -10,7 +10,6 @@ object AndroidUtils {
     fun isInternetDisponivel(context: Context): Boolean {
         val conexao = context.getSystemService(Context.CONNECTIVITY_SERVICE)  as ConnectivityManager
 
-
         val capabilities =
             conexao.getNetworkCapabilities(conexao.activeNetwork)
         if (capabilities != null) {

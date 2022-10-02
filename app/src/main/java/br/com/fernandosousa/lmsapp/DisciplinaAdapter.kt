@@ -26,7 +26,7 @@ class DisciplinaAdapter (
             cardNome = view.findViewById<TextView>(R.id.cardNome)
             cardImg = view.findViewById<ImageView>(R.id.cardImg)
             cardProgress = view.findViewById<ProgressBar>(R.id.cardProgress)
-            cardView = view.findViewById<CardView>(R.id.card_disciplinas)
+            cardView = view.findViewById<CardView>(R.id.cardDisciplinas)
 
         }
 
