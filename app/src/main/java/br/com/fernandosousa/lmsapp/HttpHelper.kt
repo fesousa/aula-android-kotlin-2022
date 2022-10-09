@@ -1,8 +1,7 @@
 package br.com.fernandosousa.lmsapp
 
 import android.util.Log
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -11,13 +10,12 @@ import java.io.IOException
 object HttpHelper {
 
     private val TAG = "HTTP_LMSApp"
-    private val LOG_ON = true
-    val JSON = "application/json; charset=utf-8"?.toMediaTypeOrNull()
+    val JSON = "application/json; charset=utf-8".toMediaType()
 
     var client = OkHttpClient()
 
     // GET
-    fun get(url:String): String {
+    fun get(url: String): String {
         Log.d(TAG, "HttpHelper.get: $url")
         val request = Request.Builder().url(url).get().build()
         return getJson(request)
@@ -37,7 +35,6 @@ object HttpHelper {
         val request = Request.Builder().url(url).delete().build()
         return getJson(request)
     }
-
 
     // Lê resposta em formato JSON
     private fun getJson(request: Request): String {

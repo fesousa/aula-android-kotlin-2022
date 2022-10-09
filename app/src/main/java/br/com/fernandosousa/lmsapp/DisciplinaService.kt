@@ -1,13 +1,7 @@
 package br.com.fernandosousa.lmsapp
 
-import android.content.Context
-import android.provider.CalendarContract
-import android.util.Log
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.json.JSONArray
-import java.net.URL
 
 object DisciplinaService {
 
@@ -16,7 +10,7 @@ object DisciplinaService {
     val host = "https://urldoseuservico.com.br"
     val TAG = "WS_LMSApp"
 
-    fun getDisciplinas (context: Context): List<Disciplina> {
+    fun getDisciplinas(): List<Disciplina> {
         var disciplinas = ArrayList<Disciplina>()
         if (AndroidUtils.isInternetDisponivel()) {
             val url = "$host/disciplinas"
@@ -35,7 +29,7 @@ object DisciplinaService {
 
     }
 
-    fun getDisciplina (context: Context, id: Long): Disciplina? {
+    fun getDisciplina(id: Long): Disciplina? {
 
         if (AndroidUtils.isInternetDisponivel()) {
             val url = "$host/disciplinas/${id}"
@@ -55,17 +49,16 @@ object DisciplinaService {
         if (AndroidUtils.isInternetDisponivel()) {
             val json = HttpHelper.post("$host/disciplinas", disciplina.toJson())
             return parserJson(json)
-        }
-        else {
+        } else {
             saveOffline(disciplina)
             return Response("OK", "Disciplina salva no dispositivo")
         }
     }
 
-    fun saveOffline(disciplina: Disciplina) : Boolean {
+    fun saveOffline(disciplina: Disciplina): Boolean {
         val dao = DatabaseManager.getDisciplinaDAO()
 
-        if (! existeDisciplina(disciplina)) {
+        if (!existeDisciplina(disciplina)) {
             dao.insert(disciplina)
         }
 
@@ -93,7 +86,7 @@ object DisciplinaService {
     }
 
     inline fun <reified T> parserJson(json: String): T {
-        val type = object : TypeToken<T>(){}.type
+        val type = object : TypeToken<T>() {}.type
         return Gson().fromJson<T>(json, type)
     }
 }

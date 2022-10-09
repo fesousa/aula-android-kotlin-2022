@@ -10,7 +10,7 @@ import java.io.Serializable
 class Disciplina : Serializable {
 
     @PrimaryKey
-    var id:Long = 0
+    var id: Long? = null
     var nome = ""
     var ementa = ""
     var foto = ""

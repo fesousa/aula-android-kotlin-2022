@@ -5,19 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.login.*
+import br.com.fernandosousa.lmsapp.databinding.LoginBinding
 
 class MainActivity : DebugActivity() {
 
     private val context: Context get() = this
+
+    private val binding by lazy {
+        LoginBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login)
+        setContentView(binding.root)
 
         // encontra objeto pelo id
-        campo_imagem.setImageResource(R.drawable.imagem_login)
+        binding.campoImagem.setImageResource(R.drawable.imagem_login)
 
-        texto_login.text = getString(R.string.mensagem_login)
+        binding.textoLogin.text = getString(R.string.mensagem_login)
 
         // evento no botao de login forma 1
 //        botao_login.setOnClickListener {
@@ -27,42 +32,36 @@ class MainActivity : DebugActivity() {
 //        }
 
         // segunda forma: delegar para método
-        botao_login.setOnClickListener {onClickLogin() }
+        binding.botaoLogin.setOnClickListener { onClickLogin() }
 
-        progressBar.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.INVISIBLE
 
         // procurar pelas preferências, se pediu para guardar usuário e senha
         var lembrar = Prefs.getBoolean("lembrar")
         if (lembrar) {
-            var lembrarNome  = Prefs.getString("lembrarNome")
-            var lembrarSenha  = Prefs.getString("lembrarSenha")
-            campo_usuario.setText(lembrarNome)
-            campo_senha.setText(lembrarSenha)
-            checkBoxLogin.isChecked = lembrar
-
+            var lembrarNome = Prefs.getString("lembrarNome")
+            var lembrarSenha = Prefs.getString("lembrarSenha")
+            binding.textoLogin.setText(lembrarNome)
+            binding.textoSenha.setText(lembrarSenha)
+            binding.checkBoxLogin.isChecked = lembrar
         }
-
-
-
-
     }
 
-    fun onClickLogin(){
+    fun onClickLogin() {
 
-            val valorUsuario = campo_usuario.text.toString()
-            val valorSenha = campo_senha.text.toString()
+        val valorUsuario = binding.campoUsuario.text.toString()
+        val valorSenha = binding.campoSenha.text.toString()
 
-            // armazenar valor do checkbox
-            Prefs.setBoolean("lembrar", checkBoxLogin.isChecked)
-            // verificar se é para pembrar nome e senha
-            if (checkBoxLogin.isChecked) {
-                Prefs.setString("lembrarNome", valorUsuario)
-                Prefs.setString("lembrarSenha", valorSenha)
-            } else{
-                Prefs.setString("lembrarNome", "")
-                Prefs.setString("lembrarSenha", "")
-            }
-
+        // armazenar valor do checkbox
+        Prefs.setBoolean("lembrar", binding.checkBoxLogin.isChecked)
+        // verificar se é para pembrar nome e senha
+        if (binding.checkBoxLogin.isChecked) {
+            Prefs.setString("lembrarNome", valorUsuario)
+            Prefs.setString("lembrarSenha", valorSenha)
+        } else {
+            Prefs.setString("lembrarNome", "")
+            Prefs.setString("lembrarSenha", "")
+        }
 
         // criar intent
         val intent = Intent(context, TelaInicialActivity::class.java)
@@ -79,10 +78,10 @@ class MainActivity : DebugActivity() {
 
         // fazer a chamada esperando resultado
         startActivityForResult(intent, 1)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             val result = data?.getStringExtra("result")
             Toast.makeText(context, "$result", Toast.LENGTH_LONG).show()

@@ -3,29 +3,31 @@ package br.com.fernandosousa.lmsapp
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
+import br.com.fernandosousa.lmsapp.databinding.ActivityDisciplinaBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_disciplina.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class DisciplinaActivity : DebugActivity() {
 
     private val context: Context get() = this
+
+    private val binding by lazy {
+        ActivityDisciplinaBinding.inflate(layoutInflater)
+    }
+
     var disciplina: Disciplina? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_disciplina)
+        setContentView(binding.root)
 
         // recuperar onjeto de Disciplina da Intent
         disciplina = intent.getSerializableExtra("disciplina") as Disciplina
 
         // configurar título com nome da Disciplina e botão de voltar da Toobar
         // colocar toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarInclude.toolbar)
 
         // alterar título da ActionBar
         supportActionBar?.title = disciplina?.nome
@@ -34,13 +36,13 @@ class DisciplinaActivity : DebugActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // atualizar dados do carro
-        nomeDisciplina.text = disciplina?.nome
-        Picasso.with(this).load(disciplina?.foto).fit().into(imagemDisciplina,
-                object: com.squareup.picasso.Callback{
-                    override fun onSuccess() {}
+        binding.nomeDisciplina.text = disciplina?.nome
+        Picasso.with(this).load(disciplina?.foto).fit().into(binding.imagemDisciplina,
+            object : com.squareup.picasso.Callback {
+                override fun onSuccess() {}
 
-                    override fun onError() { }
-                })
+                override fun onError() {}
+            })
     }
 
     // método sobrescrito para inflar o menu na Actionbar
@@ -55,19 +57,18 @@ class DisciplinaActivity : DebugActivity() {
         val id = item?.itemId
         // verificar qual item foi clicado
         // remover a disciplina no WS
-        if  (id == R.id.action_remover) {
+        if (id == R.id.action_remover) {
             // alerta para confirmar a remeção
             // só remove se houver confirmação positiva
             AlertDialog.Builder(this)
-                    .setTitle(R.string.app_name)
-                    .setMessage("Deseja excluir a disciplina")
-                    .setPositiveButton("Sim") {
-                        dialog, which ->
-                            dialog.dismiss()
-                            taskExcluir()
-                    }.setNegativeButton("Não") {
-                        dialog, which -> dialog.dismiss()
-                    }.create().show()
+                .setTitle(R.string.app_name)
+                .setMessage("Deseja excluir a disciplina")
+                .setPositiveButton("Sim") { dialog, which ->
+                    dialog.dismiss()
+                    taskExcluir()
+                }.setNegativeButton("Não") { dialog, which ->
+                    dialog.dismiss()
+                }.create().show()
         }
         // botão up navigation
         else if (id == android.R.id.home) {

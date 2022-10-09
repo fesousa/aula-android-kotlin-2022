@@ -8,8 +8,9 @@ import androidx.room.Query
 
 @Dao
 interface DisciplinaDAO {
+
     @Query("SELECT * FROM disciplina where id = :id")
-    fun getById(id: Long) : Disciplina?
+    fun getById(id: Long?): Disciplina?
 
     @Query("SELECT * FROM disciplina")
     fun findAll(): List<Disciplina>

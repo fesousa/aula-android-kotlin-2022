@@ -2,21 +2,25 @@ package br.com.fernandosousa.lmsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_cadastro_disciplina.*
+import br.com.fernandosousa.lmsapp.databinding.ActivityCadastroDisciplinaBinding
 
 class DisciplinaCadastroActivity : AppCompatActivity() {
 
+    private val binding by lazy {
+        ActivityCadastroDisciplinaBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro_disciplina)
+        setContentView(binding.root)
         setTitle("Nova Disciplina")
 
-        salvarDisciplina.setOnClickListener {
+        binding.salvarDisciplina.setOnClickListener {
             val disciplina = Disciplina()
-            disciplina.nome = nomeDisciplina.text.toString()
-            disciplina.ementa = ementaDisciplina.text.toString()
-            disciplina.professor = professorDisciplina.text.toString()
-            disciplina.foto = urlFoto.text.toString()
+            disciplina.nome = binding.nomeDisciplina.text.toString()
+            disciplina.ementa = binding.ementaDisciplina.text.toString()
+            disciplina.professor = binding.professorDisciplina.text.toString()
+            disciplina.foto = binding.urlFoto.text.toString()
 
             taskAtualizar(disciplina)
         }

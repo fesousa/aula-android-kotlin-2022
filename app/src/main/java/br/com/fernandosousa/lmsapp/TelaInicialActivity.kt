@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.*
 import android.view.Menu
@@ -14,23 +13,26 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import kotlinx.android.synthetic.main.toolbar.*
+import br.com.fernandosousa.lmsapp.databinding.ActivityTelaInicialBinding
 
 class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
     private var disciplinas = listOf<Disciplina>()
     private var REQUEST_CADASTRO = 1
-    private var REQUEST_REMOVE= 2
+    private var REQUEST_REMOVE = 2
+
+    private val binding by lazy {
+        ActivityTelaInicialBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(binding.root)
 
         // acessar parametros da intnet
         // intent é um atributo herdado de Activity
-        val args:Bundle? = intent.extras
+        val args: Bundle? = intent.extras
         // recuperar o parâmetro do tipo String
 
         //val nome = args?.getString("nome")
@@ -42,7 +44,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         //Toast.makeText(context, "Numero: $numero", Toast.LENGTH_LONG).show()
 
         // colocar toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarInclude.toolbar)
 
         // alterar título da ActionBar
         supportActionBar?.title = "Disciplinas"
@@ -53,12 +55,9 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         configuraMenuLateral()
 
         // configurar cardview
-        recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
-        recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
-        recyclerDisciplinas?.setHasFixedSize(true)
-
-
-
+        binding.recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
+        binding.recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
+        binding.recyclerDisciplinas?.setHasFixedSize(true)
     }
 
     override fun onResume() {
@@ -73,10 +72,11 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         Thread {
             // Código para procurar as disciplinas
             // que será executado em segundo plano / Thread separada
-            this.disciplinas = DisciplinaService.getDisciplinas(context)
+            this.disciplinas = DisciplinaService.getDisciplinas()
             runOnUiThread {
                 // Código para atualizar a UI com a lista de disciplinas
-                recyclerDisciplinas?.adapter = DisciplinaAdapter(this.disciplinas) { onClickDisciplina(it) }
+                binding.recyclerDisciplinas?.adapter =
+                    DisciplinaAdapter(this.disciplinas) { onClickDisciplina(it) }
             }
         }.start()
 
@@ -93,12 +93,18 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     // configuraçao do navigation Drawer com a toolbar
     private fun configuraMenuLateral() {
         // ícone de menu (hamburger) para mostrar o menu
-        var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        var toogle = ActionBarDrawerToggle(
+            this,
+            binding.layoutMenuLateral,
+            binding.toolbarInclude.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
 
-        layoutMenuLateral.addDrawerListener(toogle)
+        binding.layoutMenuLateral.addDrawerListener(toogle)
         toogle.syncState()
 
-        menu_lateral.setNavigationItemSelectedListener(this)
+        binding.menuLateral.setNavigationItemSelectedListener(this)
     }
 
     // método que deve ser implementado quando a activity implementa a interface NavigationView.OnNavigationItemSelectedListener
@@ -127,14 +133,14 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         }
 
         // fecha menu depois de tratar o evento
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        binding.layoutMenuLateral.closeDrawer(GravityCompat.START)
         return true
     }
 
     fun cliqueSair() {
         val returnIntent = Intent();
-        returnIntent.putExtra("result","Saída do BrewerApp");
-        setResult(Activity.RESULT_OK,returnIntent);
+        returnIntent.putExtra("result", "Saída do BrewerApp");
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
 
@@ -143,7 +149,8 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         // infla o menu com os botões da ActionBar
         menuInflater.inflate(R.menu.menu_main, menu)
         // vincular evento de buscar
-        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 // ação enquanto está digitando
@@ -154,7 +161,6 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
                 // ação  quando terminou de buscar e enviou
                 return false
             }
-
         })
         return true
     }
@@ -164,7 +170,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         val id = item?.itemId
         // verificar qual item foi clicado e mostrar a mensagem Toast na tela
         // a comparação é feita com o recurso de id definido no xml
-        if  (id == R.id.action_buscar) {
+        if (id == R.id.action_buscar) {
             Toast.makeText(context, "Botão de buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
             Toast.makeText(context, "Botão de atualizar", Toast.LENGTH_LONG).show()
@@ -181,13 +187,13 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         }
         return super.onOptionsItemSelected(item)
     }
+
     // esperar o retorno do cadastro da disciplina
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE) {
             // atualizar lista de disciplinas
             taskDisciplinas()
         }
     }
-
-
 }
