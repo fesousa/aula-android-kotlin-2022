@@ -1,13 +1,8 @@
 package br.com.fernandosousa.lmsapp
 
 import android.content.Context
-import android.provider.CalendarContract
-import android.util.Log
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.json.JSONArray
-import java.net.URL
 
 object DisciplinaService {
 
@@ -16,7 +11,7 @@ object DisciplinaService {
     val host = "https://urldoseuservico.com.br"
     val TAG = "WS_LMSApp"
 
-    fun getDisciplinas (context: Context): List<Disciplina> {
+    fun getDisciplinas (): List<Disciplina> {
         var disciplinas = ArrayList<Disciplina>()
         if (AndroidUtils.isInternetDisponivel()) {
             val url = "$host/disciplinas"
@@ -35,7 +30,7 @@ object DisciplinaService {
 
     }
 
-    fun getDisciplina (context: Context, id: Long): Disciplina? {
+    fun getDisciplina (id: Long): Disciplina? {
 
         if (AndroidUtils.isInternetDisponivel()) {
             val url = "$host/disciplinas/${id}"

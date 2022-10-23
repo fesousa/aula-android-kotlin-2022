@@ -1,6 +1,5 @@
 package br.com.fernandosousa.lmsapp
 
-import android.content.Context
 import android.content.SharedPreferences
 
 object Prefs {

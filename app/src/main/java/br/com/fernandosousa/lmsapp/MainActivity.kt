@@ -1,26 +1,29 @@
 package br.com.fernandosousa.lmsapp
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.login.*
+import br.com.fernandosousa.lmsapp.databinding.LoginBinding
 
 class MainActivity : DebugActivity() {
 
     private val context: Context get() = this
+
+    private val binding by lazy {
+        LoginBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login)
+        setContentView(binding.root)
 
         // encontra objeto pelo id
-        campo_imagem.setImageResource(R.drawable.imagem_login)
+        binding.campoImagem.setImageResource(R.drawable.imagem_login)
 
-        texto_login.text = getString(R.string.mensagem_login)
+        binding.textoLogin.text = getString(R.string.mensagem_login)
 
         // evento no botao de login forma 1
 //        botao_login.setOnClickListener {
@@ -30,31 +33,31 @@ class MainActivity : DebugActivity() {
 //        }
 
         // segunda forma: delegar para método
-        botao_login.setOnClickListener {onClickLogin() }
+        binding.botaoLogin.setOnClickListener {onClickLogin() }
 
-        progressBar.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.INVISIBLE
 
         // procurar pelas preferências, se pediu para guardar usuário e senha
         var lembrar = Prefs.getBoolean("lembrar")
         if (lembrar) {
             var lembrarNome  = Prefs.getString("lembrarNome")
             var lembrarSenha  = Prefs.getString("lembrarSenha")
-            campo_usuario.setText(lembrarNome)
-            campo_senha.setText(lembrarSenha)
-            checkBoxLogin.isChecked = lembrar
+            binding.campoUsuario.setText(lembrarNome)
+            binding.campoSenha.setText(lembrarSenha)
+            binding.checkBoxLogin.isChecked = lembrar
 
         }
     }
 
     fun onClickLogin(){
 
-            val valorUsuario = campo_usuario.text.toString()
-            val valorSenha = campo_senha.text.toString()
+            val valorUsuario = binding.campoUsuario.text.toString()
+            val valorSenha = binding.campoSenha.text.toString()
 
             // armazenar valor do checkbox
-            Prefs.setBoolean("lembrar", checkBoxLogin.isChecked)
+            Prefs.setBoolean("lembrar", binding.checkBoxLogin.isChecked)
             // verificar se é para pembrar nome e senha
-            if (checkBoxLogin.isChecked) {
+            if (binding.checkBoxLogin.isChecked) {
                 Prefs.setString("lembrarNome", valorUsuario)
                 Prefs.setString("lembrarSenha", valorSenha)
             } else{
@@ -82,6 +85,7 @@ class MainActivity : DebugActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             val result = data?.getStringExtra("result")
             Toast.makeText(context, "$result", Toast.LENGTH_LONG).show()
@@ -102,7 +106,7 @@ class MainActivity : DebugActivity() {
         if (intent.hasExtra("disciplinaId")) {
             Thread {
                 var disciplinaId = intent.getStringExtra("disciplinaId")?.toLong()!!
-                val disciplina = DisciplinaService.getDisciplina(this, disciplinaId)
+                val disciplina = DisciplinaService.getDisciplina(disciplinaId)
                 runOnUiThread {
                     val intentDisciplina = Intent(this, DisciplinaActivity::class.java)
                     intentDisciplina.putExtra("disciplina", disciplina)

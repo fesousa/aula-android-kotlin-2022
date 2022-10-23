@@ -1,7 +1,6 @@
 package br.com.fernandosousa.lmsapp
 
 import android.util.Log
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request

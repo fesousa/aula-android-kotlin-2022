@@ -15,7 +15,7 @@
         android:orientation="vertical"
         tools:context=".TelaInicialActivity">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/toolbar" android:id="@+id/toolbarInclude"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
 
     <!--Menu lateral-->
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/menu_lateral"
+        android:id="@+id/menuLateral"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

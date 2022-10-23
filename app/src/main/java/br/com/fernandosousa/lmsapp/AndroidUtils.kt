@@ -3,7 +3,6 @@ package br.com.fernandosousa.lmsapp
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 
 object AndroidUtils {
     // verificar se existe algum tipo de conexão disponível

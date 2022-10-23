@@ -44,9 +44,9 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             val disciplinaId = mensagemRemota.data.get("disciplinaId")?.toLong()!!
             mensagem += ""
             // recuperar disciplina no WS
-            val disciplina = DisciplinaService.getDisciplina(this, disciplinaId)
+            val disciplina = DisciplinaService.getDisciplina(disciplinaId)
             intent.putExtra("disciplina", disciplina)
         }
-        NotificationUtil.create(this, 1, intent, titulo, mensagem)
+        NotificationUtil.create(1, intent, titulo, mensagem)
     }
 }
